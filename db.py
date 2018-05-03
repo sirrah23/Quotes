@@ -1,6 +1,10 @@
 import sqlite3
 
 class DBConn:
+    """
+    The database connection object that can be used to read/write quotes
+    from/to the database.
+    """
 
     def __init__(self, name):
         self.name = name
@@ -23,6 +27,10 @@ class DBConn:
         self.conn.commit()
 
     def insert_quotes(self, quotes):
+        """
+        Insert one or more quotes into the database for a given a list of (author,
+        quote) tuples.
+        """
         cursor = self.conn.cursor()
         cursor.executemany("""INSERT INTO quote (author, quote) VALUES (?, ?)""", quotes)
         self.conn.commit()
