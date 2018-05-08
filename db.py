@@ -42,4 +42,7 @@ class DBConn:
         cursor = self.conn.cursor()
         cursor.execute("""SELECT * FROM quote ORDER BY RANDOM() LIMIT 1""")
         res = cursor.fetchone()
-        return {"author": res[0], "quote": res[1]}
+        if not res:
+            return None
+        else:
+            return {"author": res[0], "quote": res[1]}
