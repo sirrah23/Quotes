@@ -10,7 +10,8 @@ def cli():
     pass
 
 @click.command()
-def quote():
+@click.option("--author", default=None, help="Author to quote")
+def quote(author):
     """Get a random quote from the database."""
 
     def format_quote(q):
@@ -22,7 +23,10 @@ def quote():
         return "{}\n{}".format(quote_str, author_str)
 
     db = DBConn(DB_NAME)
-    rand_quote = db.get_random_quote()
+    if author:
+        rand_quote = db.get_random_quote(author)
+    else:
+        rand_quote = db.get_random_quote()
     if rand_quote:
         click.echo(format_quote(rand_quote))
     else:

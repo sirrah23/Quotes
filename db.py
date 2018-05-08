@@ -35,14 +35,16 @@ class DBConn:
         cursor.executemany("""INSERT INTO quote (author, quote) VALUES (?, ?)""", quotes)
         self.conn.commit()
 
-    def get_random_quote(self):
+    def get_random_quote(self, author=None):
         """
         Grab a random quote from the database.
         """
         cursor = self.conn.cursor()
-        cursor.execute("""SELECT * FROM quote ORDER BY RANDOM() LIMIT 1""")
+        if author:
+            cursor.execute("""SELECT * FROM quote WHERE author=? ORDER BY RANDOM() LIMIT 1""", (author, ))
+        else:
+            cursor.execute("""SELECT * FROM quote ORDER BY RANDOM() LIMIT 1""")
         res = cursor.fetchone()
         if not res:
             return None
-        else:
-            return {"author": res[0], "quote": res[1]}
+        return {"author": res[0], "quote": res[1]}
