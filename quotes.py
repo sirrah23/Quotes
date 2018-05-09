@@ -12,7 +12,9 @@ def cli():
 @click.command()
 @click.option("--author", default=None, help="Author to quote")
 def quote(author):
-    """Get a random quote from the database."""
+    """
+    Get a random quote from the database.
+    """
 
     def format_quote(q):
         """
@@ -35,7 +37,9 @@ def quote(author):
 @click.command()
 @click.argument("author")
 def get(author):
-    """Get quotes from BrainyQuotes and add them to the database."""
+    """
+    Get quotes from BrainyQuotes and add them to the database.
+    """
     db = DBConn(DB_NAME)
     q_api = QuotesAPI()
     scraped_quotes = q_api.get_quotes(author)
@@ -50,7 +54,9 @@ def get(author):
 @click.argument("quote")
 @click.argument("author")
 def add(quote, author):
-    """Add a quote-author pair to the database."""
+    """
+    Add a quote-author pair to the database.
+    """
     db = DBConn(DB_NAME)
     db.insert_quotes([(author, quote)])
 
