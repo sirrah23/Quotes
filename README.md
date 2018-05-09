@@ -7,7 +7,7 @@ and will spit out random ones at your convenience.
 
 ```
 git clone https://github.com/sirrah23/Quotes.git
-cd Quotes
+cd Quotes/src
 pipenv shell
 pipenv install
 python quotes.py --help

@@ -3,7 +3,7 @@ from db import DBConn
 from api import QuotesAPI
 import click
 
-DB_NAME = 'quotes.db'
+DB_NAME = '../quotes.db'
 
 @click.group()
 def cli():
