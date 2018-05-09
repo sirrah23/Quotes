@@ -34,8 +34,8 @@ def quote(author):
 
 @click.command()
 @click.argument("author")
-def add(author):
-    """Add quotes for an author to the database."""
+def get(author):
+    """Get quotes from BrainyQuotes and add them to the database."""
     db = DBConn(DB_NAME)
     q_api = QuotesAPI()
     scraped_quotes = q_api.get_quotes(author)
@@ -46,7 +46,16 @@ def add(author):
     else:
         print("No quotes found for {}".format(author))
 
+@click.command()
+@click.argument("quote")
+@click.argument("author")
+def add(quote, author):
+    """Add a quote-author pair to the database."""
+    db = DBConn(DB_NAME)
+    db.insert_quotes([(author, quote)])
+
 cli.add_command(quote)
+cli.add_command(get)
 cli.add_command(add)
 
 if __name__ == "__main__":
